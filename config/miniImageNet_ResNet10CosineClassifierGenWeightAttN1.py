@@ -11,22 +11,22 @@ data_train_opt['nKbase'] = -1
 data_train_opt['nExemplars'] = nExemplars
 data_train_opt['nTestNovel'] = nKnovel * 3
 data_train_opt['nTestBase'] = nKnovel * 3
-data_train_opt['batch_size'] = 8
-data_train_opt['epoch_size'] = data_train_opt['batch_size'] * 1000
+data_train_opt['batch_size'] = 64
+data_train_opt['epoch_size'] = data_train_opt['batch_size'] * 600
 
 data_test_opt = {}
 data_test_opt['nKnovel'] = nKnovel
 data_test_opt['nKbase'] = nKbase
 data_test_opt['nExemplars'] = nExemplars
-data_test_opt['nTestNovel'] = 16 * data_test_opt['nKnovel']
-data_test_opt['nTestBase'] = 16 * data_test_opt['nKnovel']
+data_test_opt['nTestNovel'] = 32 * data_test_opt['nKnovel']
+data_test_opt['nTestBase'] = 32 * data_test_opt['nKnovel']
 data_test_opt['batch_size'] = 1
-data_test_opt['epoch_size'] = 2000
+data_test_opt['epoch_size'] = 320
 
 config['data_train_opt'] = data_train_opt
 config['data_test_opt'] = data_test_opt
 
-config['max_num_epochs'] = 60
+config['max_num_epochs'] = 2
 
 
 networks = {}
