@@ -32,14 +32,20 @@ class SimpleBlock(nn.Module):
         self.half_res = half_res
 
         # if the input number of channels is not equal to the output, then need a 1x1 convolution
-        if indim!=outdim:
-            self.shortcut = nn.Conv2d(indim, outdim, 1, 2 if half_res else 1, bias=False)
-            self.parametrized_layers.append(self.shortcut)
-            self.BNshortcut = nn.BatchNorm2d(outdim)
-            self.parametrized_layers.append(self.BNshortcut)
-            self.shortcut_type = '1x1'
-        else:
-            self.shortcut_type = 'identity'
+        # if indim!=outdim:
+        #     self.shortcut = nn.Conv2d(indim, outdim, 1, 2 if half_res else 1, bias=False)
+        #     self.parametrized_layers.append(self.shortcut)
+        #     self.BNshortcut = nn.BatchNorm2d(outdim)
+        #     self.parametrized_layers.append(self.BNshortcut)
+        #     self.shortcut_type = '1x1'
+        # else:
+        #     self.shortcut_type = 'identity'
+
+        self.shortcut = nn.Conv2d(indim, outdim, 1, 2 if half_res else 1, bias=False)
+        self.parametrized_layers.append(self.shortcut)
+        self.BNshortcut = nn.BatchNorm2d(outdim)
+        self.parametrized_layers.append(self.BNshortcut)
+        self.shortcut_type = '1x1'
 
         for layer in self.parametrized_layers:
             init_layer(layer)
@@ -50,7 +56,8 @@ class SimpleBlock(nn.Module):
         out = self.relu1(out)
         out = self.C2(out)
         out = self.BN2(out)
-        short_out = x if self.shortcut_type == 'identity' else self.BNshortcut(self.shortcut(x))
+        # short_out = x if self.shortcut_type == 'identity' else self.BNshortcut(self.shortcut(x))
+        short_out = self.BNshortcut(self.shortcut(x))
         out = out + short_out
         if self.userelu: out = self.relu2(out)
         return out

@@ -11,8 +11,8 @@ data_train_opt['nKbase'] = -1
 data_train_opt['nExemplars'] = nExemplars
 data_train_opt['nTestNovel'] = nKnovel * 3
 data_train_opt['nTestBase'] = nKnovel * 3
-data_train_opt['batch_size'] = 64
-data_train_opt['epoch_size'] = data_train_opt['batch_size'] * 600
+data_train_opt['batch_size'] = 32
+data_train_opt['epoch_size'] = data_train_opt['batch_size'] * 250
 
 data_test_opt = {}
 data_test_opt['nKnovel'] = nKnovel
@@ -26,7 +26,7 @@ data_test_opt['epoch_size'] = 320
 config['data_train_opt'] = data_train_opt
 config['data_test_opt'] = data_test_opt
 
-config['max_num_epochs'] = 2
+config['max_num_epochs'] = 60
 
 
 networks = {}
