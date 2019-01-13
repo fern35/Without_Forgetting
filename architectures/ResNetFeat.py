@@ -2,7 +2,6 @@ import torch
 from torch.autograd import Variable
 import torch.nn as nn
 import math
-
 from pdb import set_trace as breakpoint
 
 def init_layer(L):
