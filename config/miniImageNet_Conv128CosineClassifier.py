@@ -24,7 +24,7 @@ data_test_opt['epoch_size'] = 2000
 config['data_train_opt'] = data_train_opt
 config['data_test_opt'] = data_test_opt
 
-config['max_num_epochs'] = 60
+config['max_num_epochs'] = 2
 
 networks = {}
 net_optionsF = {'userelu': False, 'in_planes':3, 'out_planes':[64,64,128,128], 'num_stages':4}
