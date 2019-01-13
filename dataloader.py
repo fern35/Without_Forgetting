@@ -92,7 +92,7 @@ def load_data(file):
 
 
 class MiniImageNet(data.Dataset):
-    def __init__(self, phase='train', do_not_use_random_transf=False):
+    def __init__(self, phase='train', do_not_use_random_transf=True):
 
         self.base_folder = 'miniImagenet'
         assert(phase=='train' or phase=='val' or phase=='test')
@@ -174,8 +174,8 @@ class MiniImageNet(data.Dataset):
             ])
         else:
             self.transform = transforms.Compose([
-                #transforms.RandomCrop(84, padding=8),
-                #transforms.RandomHorizontalFlip(),
+                transforms.RandomCrop(84, padding=8),
+                transforms.RandomHorizontalFlip(),
                 lambda x: np.asarray(x),
                 transforms.ToTensor(),
                 normalize

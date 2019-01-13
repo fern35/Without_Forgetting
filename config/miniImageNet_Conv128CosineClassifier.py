@@ -10,7 +10,7 @@ data_train_opt['nExemplars'] = 0
 data_train_opt['nTestNovel'] = 0
 data_train_opt['nTestBase'] = 32
 data_train_opt['batch_size'] = 64#8
-data_train_opt['epoch_size'] = data_train_opt['batch_size'] * 600#1000
+data_train_opt['epoch_size'] = data_train_opt['batch_size'] * 100#1000
 
 data_test_opt = {}
 data_test_opt['nKnovel'] = 5
