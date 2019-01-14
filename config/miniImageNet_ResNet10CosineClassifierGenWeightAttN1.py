@@ -39,28 +39,6 @@ pretrainedC = './experiments/miniImageNet_ResNet10CosineClassifier/classifier_ne
 net_optionsC = {'classifier_type': 'cosine', 'weight_generator_type': 'attention_based', 'nKall': nKbase, 'nFeat': 512, 'scale_cls': 10, 'scale_att': 10.0}
 networks['classifier'] = {'def_file': 'architectures/ClassifierWithFewShotGenerationModule.py', 'pretrained': pretrainedC, 'opt': net_optionsC, 'optim_params': net_optim_paramsC}
 
-# ##########################
-# # Conv128
-# net_optionsF = {'userelu': False, 'in_planes':3, 'out_planes':[64,64,128,128], 'num_stages':4}
-# pretrainedF = './experiments/miniImageNet_Conv128CosineClassifier/feat_model_net_epoch*.best'
-# networks['feat_model'] = {'def_file': 'architectures/ConvNet.py', 'pretrained': pretrainedF, 'opt': net_optionsF, 'optim_params': None}
-#
-# net_optim_paramsC = {'optim_type': 'sgd', 'lr': 0.1, 'momentum':0.9, 'weight_decay': 5e-4, 'nesterov': True, 'LUT_lr':[(10*2, 0.1),(20*2, 0.006),(25*2, 0.0012),(30*2, 0.00024)]}
-# pretrainedC = './experiments/miniImageNet_Conv128CosineClassifier/classifier_net_epoch*.best'
-# net_optionsC = {'classifier_type': 'cosine', 'weight_generator_type': 'attention_based', 'nKall': nKbase, 'nFeat':128*5*5, 'scale_cls': 10, 'scale_att': 10.0}
-# networks['classifier'] = {'def_file': 'architectures/ClassifierWithFewShotGenerationModule.py', 'pretrained': pretrainedC, 'opt': net_optionsC, 'optim_params': net_optim_paramsC}
-#
-# ###########################
-# # ResnetLike
-# net_optionsF = {'userelu': False, 'in_planes': 3, 'dropout': 0.5}
-# pretrainedF = './experiments/miniImageNet_ResNetLikeCosineClassifier/feat_model_net_epoch*.best'
-# networks['feat_model'] = {'def_file': 'architectures/ResNetLike.py', 'pretrained': pretrainedF, 'opt': net_optionsF, 'optim_params': None}
-#
-# net_optim_paramsC = {'optim_type': 'sgd', 'lr': 0.1, 'momentum':0.9, 'weight_decay': 5e-4, 'nesterov': True, 'LUT_lr':[(10*2, 0.1),(20*2, 0.006),(25*2, 0.0012),(30*2, 0.00024)]}
-# pretrainedC = './experiments/miniImageNet_ResNetLikeCosineClassifier/classifier_net_epoch*.best'
-# net_optionsC = {'classifier_type': 'cosine', 'weight_generator_type': 'attention_based', 'nKall': nKbase, 'nFeat': 512, 'scale_cls': 10, 'scale_att': 10.0}
-# networks['classifier'] = {'def_file': 'architectures/ClassifierWithFewShotGenerationModule.py', 'pretrained': pretrainedC, 'opt': net_optionsC, 'optim_params': net_optim_paramsC}
-# #############################
 
 config['networks'] = networks
 
