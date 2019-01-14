@@ -10,7 +10,7 @@ data_train_opt['nExemplars'] = 0
 data_train_opt['nTestNovel'] = 0
 data_train_opt['nTestBase'] = 32
 data_train_opt['batch_size'] = 32 #8
-data_train_opt['epoch_size'] = data_train_opt['batch_size'] * 500 #1000
+data_train_opt['epoch_size'] = data_train_opt['batch_size'] * 250 #1000
 
 
 data_test_opt = {}
@@ -18,7 +18,7 @@ data_test_opt['nKnovel'] = 5
 data_test_opt['nKbase'] = nKbase
 data_test_opt['nExemplars'] = 1
 data_test_opt['nTestNovel'] = 16 * data_test_opt['nKnovel']
-data_test_opt['nTestBase'] = 16 * data_test_opt['nKnovel']
+data_test_opt['nTestBase'] = 1 * data_test_opt['nKnovel']
 data_test_opt['batch_size'] = 1
 data_test_opt['epoch_size'] = 320
 
@@ -27,7 +27,7 @@ config['data_train_opt'] = data_train_opt
 config['data_test_opt'] = data_test_opt
 
 
-config['max_num_epochs'] = 60
+config['max_num_epochs'] = 4
 
 networks = {}
 net_optim_paramsF = {'optim_type': 'sgd', 'lr': 0.1, 'momentum':0.9, 'weight_decay': 5e-4, 'nesterov': True, 'LUT_lr':[(20, 0.02),(40, 0.006),(50, 0.0012),(60, 0.00024)]}
