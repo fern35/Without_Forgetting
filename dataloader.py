@@ -26,6 +26,7 @@ from pdb import set_trace as breakpoint
 
 # Set the appropriate paths of the datasets here.
 _MINI_IMAGENET_DATASET_DIR = './datasets/MiniImagenet'
+_CUB_DATASET_DIR = './datasets/CUB'
 _IMAGENET_DATASET_DIR = './datasets/IMAGENET/ILSVRC2012'
 
 _IMAGENET_LOWSHOT_BENCHMARK_CATEGORY_SPLITS_PATH = './data/IMAGENET_LOWSHOT_BENCHMARK_CATEGORY_SPLITS.json'
@@ -193,6 +194,109 @@ class MiniImageNet(data.Dataset):
     def __len__(self):
         return len(self.data)
 
+class CUB(data.Dataset):
+    def __init__(self, phase='train', do_not_use_random_transf=True):
+
+        # self.base_folder = 'miniImagenet'
+        self.base_folder = 'cub'
+        assert(phase=='train' or phase=='val' or phase=='test')
+        self.phase = phase
+        #self.name = 'MiniImageNet_' + phase
+        self.name = 'CUB_' + phase
+
+        print('Loading CUB dataset - phase {0}'.format(phase))
+        file_train_categories_train_phase = os.path.join(
+            _CUB_DATASET_DIR,
+            'CUB_meta_train_train.pickle')
+        file_train_categories_val_phase = os.path.join(
+            _CUB_DATASET_DIR,
+            'CUB_meta_train_val.pickle')
+        file_train_categories_test_phase = os.path.join(
+            _CUB_DATASET_DIR,
+            'CUB_meta_train_test.pickle')
+        file_val_categories_val_phase = os.path.join(
+            _CUB_DATASET_DIR,
+            'CUB_meta_val.pickle')
+        file_test_categories_test_phase = os.path.join(
+            _CUB_DATASET_DIR,
+            'CUB_meta_test.pickle')
+
+        if self.phase=='train':
+            # During training phase we only load the training phase images
+            # of the training categories (aka base categories).
+            data_train = load_data(file_train_categories_train_phase)
+            self.data = data_train['data']
+            self.labels = data_train['labels']
+
+            self.label2ind = buildLabelIndex(self.labels)
+            self.labelIds = sorted(self.label2ind.keys())
+            self.num_cats = len(self.labelIds)
+            self.labelIds_base = self.labelIds
+            self.num_cats_base = len(self.labelIds_base)
+
+        elif self.phase=='val' or self.phase=='test':
+            if self.phase=='test':
+                # load data that will be used for evaluating the recognition
+                # accuracy of the base categories.
+                data_base = load_data(file_train_categories_test_phase)
+                # load data that will be use for evaluating the few-shot recogniton
+                # accuracy on the novel categories.
+                data_novel = load_data(file_test_categories_test_phase)
+            else: # phase=='val'
+                # load data that will be used for evaluating the recognition
+                # accuracy of the base categories.
+                data_base = load_data(file_train_categories_val_phase)
+                # load data that will be use for evaluating the few-shot recogniton
+                # accuracy on the novel categories.
+                data_novel = load_data(file_val_categories_val_phase)
+
+            self.data = np.concatenate(
+                [data_base['data'], data_novel['data']], axis=0)
+            self.labels = data_base['labels'] + data_novel['labels']
+
+            self.label2ind = buildLabelIndex(self.labels)
+            self.labelIds = sorted(self.label2ind.keys())
+            self.num_cats = len(self.labelIds)
+
+            self.labelIds_base = buildLabelIndex(data_base['labels']).keys()
+            self.labelIds_novel = buildLabelIndex(data_novel['labels']).keys()
+            self.num_cats_base = len(self.labelIds_base)
+            self.num_cats_novel = len(self.labelIds_novel)
+            intersection = set(self.labelIds_base) & set(self.labelIds_novel)
+            assert(len(intersection) == 0)
+        else:
+            raise ValueError('Not valid phase {0}'.format(self.phase))
+
+        mean_pix = [x/255.0 for x in [120.39586422,  115.59361427, 104.54012653]]
+        std_pix = [x/255.0 for x in [70.68188272,  68.27635443,  72.54505529]]
+        normalize = transforms.Normalize(mean=mean_pix, std=std_pix)
+
+        if (self.phase=='test' or self.phase=='val') or (do_not_use_random_transf==True):
+            self.transform = transforms.Compose([
+                lambda x: np.asarray(x),
+                transforms.ToTensor(),
+                normalize
+            ])
+        else:
+            self.transform = transforms.Compose([
+                transforms.RandomCrop(84, padding=8),
+                transforms.RandomHorizontalFlip(),
+                lambda x: np.asarray(x),
+                transforms.ToTensor(),
+                normalize
+            ])
+
+    def __getitem__(self, index):
+        img, label = self.data[index], self.labels[index]
+        # doing this so that it is consistent with all other datasets
+        # to return a PIL Image
+        img = Image.fromarray(img)
+        if self.transform is not None:
+            img = self.transform(img)
+        return img, label
+
+    def __len__(self):
+        return len(self.data)
 
 class FewShotDataloader():
     def __init__(self,

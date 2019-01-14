@@ -141,7 +141,7 @@ class ResNet(nn.Module):
                 B = block(indim, list_of_out_dims[i], half_res, userelu=userelu_here)
                 trunk.append(B)
                 indim = list_of_out_dims[i]
-        trunk.append(nn.AvgPool2d(3))
+        trunk.append(nn.AvgPool2d(4))
         self.trunk = nn.Sequential(*trunk)
 
         self.final_feat_dim = indim
