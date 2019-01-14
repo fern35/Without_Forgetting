@@ -34,7 +34,7 @@ net_optionsF = {'userelu': False, 'restype': 'ResNet10'}
 pretrainedF = './experiments/cub_ResNet10CosineClassifier/feat_model_net_epoch*.best'
 networks['feat_model'] = {'def_file': 'architectures/ResNetFeat.py', 'pretrained': pretrainedF, 'opt': net_optionsF,  'optim_params': None }
 
-net_optim_paramsC = {'optim_type': 'sgd', 'lr': 0.1, 'momentum':0.9, 'weight_decay': 5e-4, 'nesterov': True, 'LUT_lr':[(10*2, 0.1),(20*2, 0.006),(25*2, 0.0012),(30*2, 0.00024)]}
+net_optim_paramsC = {'optim_type': 'sgd', 'lr': 0.1, 'momentum':0.9, 'weight_decay': 5e-4, 'nesterov': True, 'LUT_lr':[(10*2, 0.2),(20*2, 0.006),(25*2, 0.0012),(30*2, 0.00024)]}
 pretrainedC = './experiments/cub_ResNet10CosineClassifier/classifier_net_epoch*.best'
 net_optionsC = {'classifier_type': 'cosine', 'weight_generator_type': 'attention_based', 'nKall': nKbase, 'nFeat': 512, 'scale_cls': 10, 'scale_att': 10.0}
 networks['classifier'] = {'def_file': 'architectures/ClassifierWithFewShotGenerationModule.py', 'pretrained': pretrainedC, 'opt': net_optionsC, 'optim_params': net_optim_paramsC}
