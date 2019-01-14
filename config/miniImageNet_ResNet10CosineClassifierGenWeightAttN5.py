@@ -69,4 +69,4 @@ criterions = {}
 criterions['loss']    = {'ctype':'CrossEntropyLoss', 'opt':None}
 config['criterions'] = criterions
 
-config['data_dir'] = './data/IMAGENET/imagenet_ResNet10CosineClassifier'
+config['algorithm_type'] = 'FewShot'
