@@ -93,7 +93,7 @@ def load_data(file):
 
 
 class MiniImageNet(data.Dataset):
-    def __init__(self, phase='train', do_not_use_random_transf=True):
+    def __init__(self, phase='train', do_not_use_random_transf=False):
 
         self.base_folder = 'miniImagenet'
         assert(phase=='train' or phase=='val' or phase=='test')
@@ -195,7 +195,7 @@ class MiniImageNet(data.Dataset):
         return len(self.data)
 
 class CUB(data.Dataset):
-    def __init__(self, phase='train', do_not_use_random_transf=True):
+    def __init__(self, phase='train', do_not_use_random_transf=False):
 
         # self.base_folder = 'miniImagenet'
         self.base_folder = 'cub'
