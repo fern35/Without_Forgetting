@@ -1,7 +1,7 @@
 ### This is the code for school project for a course of Master MVA.
 
 This is an adapted code based on the code for the paper *Dynamic Few-Shot Visual Learning without Forgetting*
-The source for the paper: https://github.com/gidariss/FewShotWithoutForgetting
+The source code for the paper: https://github.com/gidariss/FewShotWithoutForgetting
 
 ### Requirements
 It was developed and tested with pytorch version 0.2.0_4
