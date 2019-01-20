@@ -1,6 +1,6 @@
 ### This is the code for school project for a course of Master MVA.
 
-This is an adapted code based on the code for the paper *Dynamic Few-Shot Visual Learning without Forgetting* . 
+This is an adapted code based on the code for the paper *Dynamic Few-Shot Visual Learning without Forgetting*.   
 The source code for the paper: https://github.com/gidariss/FewShotWithoutForgetting
 
 ### Requirements
