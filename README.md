@@ -39,6 +39,6 @@ CUDA_VISIBLE_DEVICES=0 python evaluate.py --config=miniImageNet_ResNet10CosineCl
 
 CUDA_VISIBLE_DEVICES=0 python train.py --config=miniImageNet_ResNet10CosineClassifierGenWeightAttN5
 CUDA_VISIBLE_DEVICES=0 python evaluate.py --config=miniImageNet_ResNet10CosineClassifierGenWeightAttN5 --testset
-
+```
 
 #### In order to control the setting of data augmentation, just change the variable 'do_not_use_random_transf' in 'dataloader.py'
