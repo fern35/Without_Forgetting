@@ -1,4 +1,4 @@
-### This is code for school project for the course 'Object Recognition' of Master MVA.
+### This is the code for school project for a course of Master MVA.
 
 This is an adapted code based on the code for the paper *Dynamic Few-Shot Visual Learning without Forgetting*
 source: https://github.com/gidariss/FewShotWithoutForgetting
@@ -41,4 +41,4 @@ CUDA_VISIBLE_DEVICES=0 python train.py --config=miniImageNet_ResNet10CosineClass
 CUDA_VISIBLE_DEVICES=0 python evaluate.py --config=miniImageNet_ResNet10CosineClassifierGenWeightAttN5 --testset
 
 
-In order to control the setting of data augmentation, just change the variable 'do_not_use_random_transf' in 'dataloader.py'
+#### In order to control the setting of data augmentation, just change the variable 'do_not_use_random_transf' in 'dataloader.py'
